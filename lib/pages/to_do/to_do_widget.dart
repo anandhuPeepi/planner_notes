@@ -103,7 +103,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 30.0),
                                       child: Text(
-                                        'To - Do we',
+                                        'To - Do we are',
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
