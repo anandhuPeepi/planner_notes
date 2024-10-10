@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "551745261741",
+    "project_id": "my-daily-planner-app-nujtrf",
+    "storage_bucket": "my-daily-planner-app-nujtrf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551745261741:android:2bbf7ec32f28cb175b7624",
+        "android_client_info": {
+          "package_name": "com.mycompany.mydailyplannerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf2ocSnUOmyHx08J0eByg9a4UVw0B-ZhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
