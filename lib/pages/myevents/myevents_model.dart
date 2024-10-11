@@ -9,6 +9,8 @@ class MyeventsModel extends FlutterFlowModel<MyeventsWidget> {
 
   DateTime? initialDate;
 
+  bool isPendingSelected = true;
+
   @override
   void initState(BuildContext context) {}
 

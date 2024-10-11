@@ -10,12 +10,10 @@ export 'create_task_model.dart';
 class CreateTaskWidget extends StatefulWidget {
   const CreateTaskWidget({
     super.key,
-    this.slctdadate,
-    required this.vavava,
+    required this.userChosenDate,
   });
 
-  final DateTime? slctdadate;
-  final DateTime? vavava;
+  final DateTime? userChosenDate;
 
   @override
   State<CreateTaskWidget> createState() => _CreateTaskWidgetState();
@@ -35,8 +33,11 @@ class _CreateTaskWidgetState extends State<CreateTaskWidget> {
     super.initState();
     _model = createModel(context, () => CreateTaskModel());
 
-    _model.textController ??= TextEditingController();
+    _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    _model.textFieldlocTextController ??= TextEditingController();
+    _model.textFieldlocFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -85,7 +86,7 @@ class _CreateTaskWidgetState extends State<CreateTaskWidget> {
                         ),
                   ),
                   TextFormField(
-                    controller: _model.textController,
+                    controller: _model.textController1,
                     focusNode: _model.textFieldFocusNode,
                     autofocus: false,
                     textInputAction: TextInputAction.next,
@@ -135,7 +136,7 @@ class _CreateTaskWidgetState extends State<CreateTaskWidget> {
                         ),
                     minLines: 1,
                     validator:
-                        _model.textControllerValidator.asValidator(context),
+                        _model.textController1Validator.asValidator(context),
                   ),
                 ].divide(const SizedBox(height: 8.0)),
               ),
@@ -323,6 +324,72 @@ class _CreateTaskWidgetState extends State<CreateTaskWidget> {
                   ),
                 ].divide(const SizedBox(height: 8.0)),
               ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Location',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'sf pro',
+                          letterSpacing: 0.0,
+                          useGoogleFonts: false,
+                        ),
+                  ),
+                ].divide(const SizedBox(height: 8.0)),
+              ),
+              TextFormField(
+                controller: _model.textFieldlocTextController,
+                focusNode: _model.textFieldlocFocusNode,
+                autofocus: false,
+                textInputAction: TextInputAction.next,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                        fontFamily: 'sf pro',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  filled: true,
+                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'sf pro',
+                      letterSpacing: 0.0,
+                      useGoogleFonts: false,
+                    ),
+                minLines: 1,
+                validator: _model.textFieldlocTextControllerValidator
+                    .asValidator(context),
+              ),
               Align(
                 alignment: const AlignmentDirectional(0.0, 0.0),
                 child: FFButtonWidget(
@@ -331,10 +398,11 @@ class _CreateTaskWidgetState extends State<CreateTaskWidget> {
                         .set(createTasksRecordData(
                       startTime: _model.datePicked1,
                       uid: currentUserReference,
-                      taskName: _model.textController.text,
+                      taskName: _model.textController1.text,
                       isFinished: false,
                       endTime: _model.datePicked2,
-                      taskDate: widget.vavava,
+                      taskDate: widget.userChosenDate,
+                      location: _model.textFieldlocTextController.text,
                     ));
 
                     await currentUserReference!.update(createUserRecordData());

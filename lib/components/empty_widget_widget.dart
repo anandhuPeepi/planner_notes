@@ -41,7 +41,6 @@ class _EmptyWidgetWidgetState extends State<EmptyWidgetWidget> {
       width: double.infinity,
       height: 200.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Padding(
@@ -62,11 +61,22 @@ class _EmptyWidgetWidgetState extends State<EmptyWidgetWidget> {
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Text(
-                'You don\'t have any tasks today',
+                'You don\'t have any tasks on this day',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'sf pro',
                       color: FlutterFlowTheme.of(context).secondaryText,
+                      letterSpacing: 0.0,
+                      useGoogleFonts: false,
+                    ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+              child: Text(
+                'Click the + button to create new task',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'sf pro',
                       letterSpacing: 0.0,
                       useGoogleFonts: false,
                     ),
