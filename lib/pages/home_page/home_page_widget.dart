@@ -163,7 +163,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       14.0, 21.0, 0.0, 0.0),
                                   child: Text(
-                                    'Welcome Back ,',
+                                    'Welcome Backd ,',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

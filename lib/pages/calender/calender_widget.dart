@@ -612,7 +612,7 @@ class _CalenderWidgetState extends State<CalenderWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Opacity(
-                                                        opacity: 8.0,
+                                                        opacity: 0.8,
                                                         child: Text(
                                                           '9:00 - ',
                                                           style: FlutterFlowTheme
@@ -634,7 +634,7 @@ class _CalenderWidgetState extends State<CalenderWidget> {
                                                         ),
                                                       ),
                                                       Opacity(
-                                                        opacity: 8.0,
+                                                        opacity: 0.8,
                                                         child: Text(
                                                           '10.00',
                                                           style: FlutterFlowTheme
@@ -656,7 +656,7 @@ class _CalenderWidgetState extends State<CalenderWidget> {
                                                         ),
                                                       ),
                                                       Opacity(
-                                                        opacity: 8.0,
+                                                        opacity: 0.8,
                                                         child: Text(
                                                           '10.00',
                                                           style: FlutterFlowTheme
