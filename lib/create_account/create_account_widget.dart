@@ -537,16 +537,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       _model.fullNameTextController.text,
                                 ));
 
-                            context.pushNamedAuth(
-                              'HomePage',
-                              context.mounted,
-                              queryParameters: {
-                                'userName': serializeParam(
-                                  _model.fullNameTextController.text,
-                                  ParamType.String,
-                                ),
-                              }.withoutNulls,
-                            );
+                            context.goNamedAuth('HomePage', context.mounted);
                           },
                           text: 'Create Account',
                           options: FFButtonOptions(
