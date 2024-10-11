@@ -9,8 +9,8 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "startTime",
-          "order": "DESCENDING"
+          "fieldPath": "taskDate",
+          "order": "ASCENDING"
         }
       ]
     }
