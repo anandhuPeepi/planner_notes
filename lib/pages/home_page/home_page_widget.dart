@@ -284,7 +284,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           Flexible(
                             child: Container(
                               width: 176.0,
-                              height: double.infinity,
+                              height: MediaQuery.sizeOf(context).height * 1.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context).primary,
                                 borderRadius: const BorderRadius.only(
@@ -424,7 +424,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.asset(
-                                      'assets/images/Icon_(1).png',
+                                      'assets/images/Icon_(5).png',
                                       width: 17.0,
                                       height: 17.0,
                                       fit: BoxFit.cover,
