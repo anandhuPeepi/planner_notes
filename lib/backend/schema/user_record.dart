@@ -45,11 +45,6 @@ class UserRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "location" field.
-  String? _location;
-  String get location => _location ?? '';
-  bool hasLocation() => _location != null;
-
   // "isFinished" field.
   bool? _isFinished;
   bool get isFinished => _isFinished ?? false;
@@ -62,7 +57,6 @@ class UserRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _location = snapshotData['location'] as String?;
     _isFinished = snapshotData['isFinished'] as bool?;
   }
 
@@ -106,7 +100,6 @@ Map<String, dynamic> createUserRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  String? location,
   bool? isFinished,
 }) {
   final firestoreData = mapToFirestore(
@@ -117,7 +110,6 @@ Map<String, dynamic> createUserRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'location': location,
       'isFinished': isFinished,
     }.withoutNulls,
   );
@@ -136,7 +128,6 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.location == e2?.location &&
         e1?.isFinished == e2?.isFinished;
   }
 
@@ -148,7 +139,6 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.location,
         e?.isFinished
       ]);
 

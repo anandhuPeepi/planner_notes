@@ -45,6 +45,11 @@ class TasksRecord extends FirestoreRecord {
   DateTime? get taskDate => _taskDate;
   bool hasTaskDate() => _taskDate != null;
 
+  // "location" field.
+  String? _location;
+  String get location => _location ?? '';
+  bool hasLocation() => _location != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -54,6 +59,7 @@ class TasksRecord extends FirestoreRecord {
     _isFinished = snapshotData['isFinished'] as bool?;
     _endTime = snapshotData['endTime'] as DateTime?;
     _taskDate = snapshotData['taskDate'] as DateTime?;
+    _location = snapshotData['location'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -101,6 +107,7 @@ Map<String, dynamic> createTasksRecordData({
   bool? isFinished,
   DateTime? endTime,
   DateTime? taskDate,
+  String? location,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -110,6 +117,7 @@ Map<String, dynamic> createTasksRecordData({
       'isFinished': isFinished,
       'endTime': endTime,
       'taskDate': taskDate,
+      'location': location,
     }.withoutNulls,
   );
 
@@ -126,7 +134,8 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
         e1?.taskName == e2?.taskName &&
         e1?.isFinished == e2?.isFinished &&
         e1?.endTime == e2?.endTime &&
-        e1?.taskDate == e2?.taskDate;
+        e1?.taskDate == e2?.taskDate &&
+        e1?.location == e2?.location;
   }
 
   @override
@@ -136,7 +145,8 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
         e?.taskName,
         e?.isFinished,
         e?.endTime,
-        e?.taskDate
+        e?.taskDate,
+        e?.location
       ]);
 
   @override
