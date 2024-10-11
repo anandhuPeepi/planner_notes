@@ -206,7 +206,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         14.0, 8.0, 0.0, 0.0),
                                     child: Text(
-                                      dateTimeFormat("d", getCurrentTimestamp),
+                                      dateTimeFormat(
+                                        "d",
+                                        getCurrentTimestamp,
+                                        locale: FFLocalizations.of(context)
+                                            .languageCode,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -227,7 +232,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         0.0, 8.0, 0.0, 0.0),
                                     child: Text(
                                       dateTimeFormat(
-                                          "MMM", getCurrentTimestamp),
+                                        "MMM",
+                                        getCurrentTimestamp,
+                                        locale: FFLocalizations.of(context)
+                                            .languageCode,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
