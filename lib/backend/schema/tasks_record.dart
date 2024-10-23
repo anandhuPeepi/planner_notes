@@ -50,6 +50,41 @@ class TasksRecord extends FirestoreRecord {
   String get location => _location ?? '';
   bool hasLocation() => _location != null;
 
+  // "isPriority" field.
+  bool? _isPriority;
+  bool get isPriority => _isPriority ?? false;
+  bool hasIsPriority() => _isPriority != null;
+
+  // "eventimeHR" field.
+  int? _eventimeHR;
+  int get eventimeHR => _eventimeHR ?? 0;
+  bool hasEventimeHR() => _eventimeHR != null;
+
+  // "eventTimeMinute" field.
+  int? _eventTimeMinute;
+  int get eventTimeMinute => _eventTimeMinute ?? 0;
+  bool hasEventTimeMinute() => _eventTimeMinute != null;
+
+  // "EventAmPm" field.
+  int? _eventAmPm;
+  int get eventAmPm => _eventAmPm ?? 0;
+  bool hasEventAmPm() => _eventAmPm != null;
+
+  // "icon" field.
+  String? _icon;
+  String get icon => _icon ?? '';
+  bool hasIcon() => _icon != null;
+
+  // "assignedUsersid" field.
+  List<String>? _assignedUsersid;
+  List<String> get assignedUsersid => _assignedUsersid ?? const [];
+  bool hasAssignedUsersid() => _assignedUsersid != null;
+
+  // "hostedBy" field.
+  String? _hostedBy;
+  String get hostedBy => _hostedBy ?? '';
+  bool hasHostedBy() => _hostedBy != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -60,6 +95,13 @@ class TasksRecord extends FirestoreRecord {
     _endTime = snapshotData['endTime'] as DateTime?;
     _taskDate = snapshotData['taskDate'] as DateTime?;
     _location = snapshotData['location'] as String?;
+    _isPriority = snapshotData['isPriority'] as bool?;
+    _eventimeHR = castToType<int>(snapshotData['eventimeHR']);
+    _eventTimeMinute = castToType<int>(snapshotData['eventTimeMinute']);
+    _eventAmPm = castToType<int>(snapshotData['EventAmPm']);
+    _icon = snapshotData['icon'] as String?;
+    _assignedUsersid = getDataList(snapshotData['assignedUsersid']);
+    _hostedBy = snapshotData['hostedBy'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -108,6 +150,12 @@ Map<String, dynamic> createTasksRecordData({
   DateTime? endTime,
   DateTime? taskDate,
   String? location,
+  bool? isPriority,
+  int? eventimeHR,
+  int? eventTimeMinute,
+  int? eventAmPm,
+  String? icon,
+  String? hostedBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -118,6 +166,12 @@ Map<String, dynamic> createTasksRecordData({
       'endTime': endTime,
       'taskDate': taskDate,
       'location': location,
+      'isPriority': isPriority,
+      'eventimeHR': eventimeHR,
+      'eventTimeMinute': eventTimeMinute,
+      'EventAmPm': eventAmPm,
+      'icon': icon,
+      'hostedBy': hostedBy,
     }.withoutNulls,
   );
 
@@ -129,13 +183,21 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
 
   @override
   bool equals(TasksRecord? e1, TasksRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.startTime == e2?.startTime &&
         e1?.uid == e2?.uid &&
         e1?.taskName == e2?.taskName &&
         e1?.isFinished == e2?.isFinished &&
         e1?.endTime == e2?.endTime &&
         e1?.taskDate == e2?.taskDate &&
-        e1?.location == e2?.location;
+        e1?.location == e2?.location &&
+        e1?.isPriority == e2?.isPriority &&
+        e1?.eventimeHR == e2?.eventimeHR &&
+        e1?.eventTimeMinute == e2?.eventTimeMinute &&
+        e1?.eventAmPm == e2?.eventAmPm &&
+        e1?.icon == e2?.icon &&
+        listEquality.equals(e1?.assignedUsersid, e2?.assignedUsersid) &&
+        e1?.hostedBy == e2?.hostedBy;
   }
 
   @override
@@ -146,7 +208,14 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
         e?.isFinished,
         e?.endTime,
         e?.taskDate,
-        e?.location
+        e?.location,
+        e?.isPriority,
+        e?.eventimeHR,
+        e?.eventTimeMinute,
+        e?.eventAmPm,
+        e?.icon,
+        e?.assignedUsersid,
+        e?.hostedBy
       ]);
 
   @override

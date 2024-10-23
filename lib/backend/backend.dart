@@ -7,6 +7,7 @@ import 'schema/util/firestore_util.dart';
 
 import 'schema/user_record.dart';
 import 'schema/tasks_record.dart';
+import 'schema/icons_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -17,6 +18,7 @@ export 'schema/util/schema_util.dart';
 
 export 'schema/user_record.dart';
 export 'schema/tasks_record.dart';
+export 'schema/icons_record.dart';
 
 /// Functions to query UserRecords (as a Stream and as a Future).
 Future<int> queryUserRecordCount({
@@ -90,6 +92,43 @@ Future<List<TasksRecord>> queryTasksRecordOnce({
     queryCollectionOnce(
       TasksRecord.collection(parent),
       TasksRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query IconsRecords (as a Stream and as a Future).
+Future<int> queryIconsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      IconsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<IconsRecord>> queryIconsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      IconsRecord.collection,
+      IconsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<IconsRecord>> queryIconsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      IconsRecord.collection,
+      IconsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

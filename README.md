@@ -1,4 +1,4 @@
-# My Daily Planner App 
+# Sheduler Planner Tracker
 
 A new Flutter project.
 

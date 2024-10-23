@@ -5,8 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class MyDailyPlannerAppFirebaseUser extends BaseAuthUser {
-  MyDailyPlannerAppFirebaseUser(this.user);
+class ShedulerPlannerTrackerFirebaseUser extends BaseAuthUser {
+  ShedulerPlannerTrackerFirebaseUser(this.user);
   User? user;
   @override
   bool get loggedIn => user != null;
@@ -55,10 +55,10 @@ class MyDailyPlannerAppFirebaseUser extends BaseAuthUser {
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
   static BaseAuthUser fromFirebaseUser(User? user) =>
-      MyDailyPlannerAppFirebaseUser(user);
+      ShedulerPlannerTrackerFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> myDailyPlannerAppFirebaseUserStream() =>
+Stream<BaseAuthUser> shedulerPlannerTrackerFirebaseUserStream() =>
     FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
@@ -66,7 +66,7 @@ Stream<BaseAuthUser> myDailyPlannerAppFirebaseUserStream() =>
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = MyDailyPlannerAppFirebaseUser(user);
+        currentUser = ShedulerPlannerTrackerFirebaseUser(user);
         return currentUser!;
       },
     );

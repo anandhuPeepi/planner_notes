@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'all_members_model.dart';
 export 'all_members_model.dart';
 
@@ -46,11 +47,12 @@ class _AllMembersWidgetState extends State<AllMembersWidget> {
           child: Text(
             'All Members',
             style: FlutterFlowTheme.of(context).bodySmall.override(
-                  fontFamily: 'sf pro',
+                  fontFamily: 'sf pro normal 400',
                   fontSize: 16.0,
                   letterSpacing: 1.0,
                   fontWeight: FontWeight.w500,
-                  useGoogleFonts: false,
+                  useGoogleFonts:
+                      GoogleFonts.asMap().containsKey('sf pro normal 400'),
                 ),
           ),
         ),

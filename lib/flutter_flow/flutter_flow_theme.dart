@@ -3,8 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+enum DeviceSize {
+  mobile,
+  tablet,
+  desktop,
+}
+
 abstract class FlutterFlowTheme {
+  static DeviceSize deviceSize = DeviceSize.mobile;
+
   static FlutterFlowTheme of(BuildContext context) {
+    deviceSize = getDeviceSize(context);
     return LightModeTheme();
   }
 
@@ -92,7 +101,22 @@ abstract class FlutterFlowTheme {
   String get bodySmallFamily => typography.bodySmallFamily;
   TextStyle get bodySmall => typography.bodySmall;
 
-  Typography get typography => ThemeTypography(this);
+  Typography get typography => {
+        DeviceSize.mobile: MobileTypography(this),
+        DeviceSize.tablet: TabletTypography(this),
+        DeviceSize.desktop: DesktopTypography(this),
+      }[deviceSize]!;
+}
+
+DeviceSize getDeviceSize(BuildContext context) {
+  final width = MediaQuery.sizeOf(context).width;
+  if (width < 479) {
+    return DeviceSize.mobile;
+  } else if (width < 991) {
+    return DeviceSize.tablet;
+  } else {
+    return DeviceSize.desktop;
+  }
 }
 
 class LightModeTheme extends FlutterFlowTheme {
@@ -106,15 +130,15 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color primary = const Color(0xFFFFFFFF);
   late Color secondary = const Color(0xFF000000);
   late Color tertiary = const Color(0xFFBBAACC);
-  late Color alternate = const Color(0xFFE0E3E7);
+  late Color alternate = const Color(0xFFEFB0C3);
   late Color primaryText = const Color(0xFF14181B);
   late Color secondaryText = const Color(0xFF57636C);
   late Color primaryBackground = const Color(0xFFF1F4F8);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
-  late Color accent1 = const Color(0x4C4B39EF);
+  late Color accent1 = const Color(0xFFB8B5EF);
   late Color accent2 = const Color(0x4D39D2C0);
   late Color accent3 = const Color(0x4DEE8B60);
-  late Color accent4 = const Color(0xCCFFFFFF);
+  late Color accent4 = const Color(0xFF86E7F8);
   late Color success = const Color(0xFF249689);
   late Color warning = const Color(0xFFF9CF58);
   late Color error = const Color(0xFFFF5963);
@@ -154,8 +178,8 @@ abstract class Typography {
   TextStyle get bodySmall;
 }
 
-class ThemeTypography extends Typography {
-  ThemeTypography(this.theme);
+class MobileTypography extends Typography {
+  MobileTypography(this.theme);
 
   final FlutterFlowTheme theme;
 
@@ -256,6 +280,233 @@ class ThemeTypography extends Typography {
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
+        fontStyle: FontStyle.normal,
+      );
+  String get bodySmallFamily => 'sf pro';
+  TextStyle get bodySmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 12.0,
+      );
+}
+
+class TabletTypography extends Typography {
+  TabletTypography(this.theme);
+
+  final FlutterFlowTheme theme;
+
+  String get displayLargeFamily => 'sf pro';
+  TextStyle get displayLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 64.0,
+      );
+  String get displayMediumFamily => 'sf pro';
+  TextStyle get displayMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 44.0,
+      );
+  String get displaySmallFamily => 'sf pro';
+  TextStyle get displaySmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 36.0,
+      );
+  String get headlineLargeFamily => 'sf pro';
+  TextStyle get headlineLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 32.0,
+      );
+  String get headlineMediumFamily => 'sf pro';
+  TextStyle get headlineMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 28.0,
+      );
+  String get headlineSmallFamily => 'sf pro';
+  TextStyle get headlineSmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 24.0,
+      );
+  String get titleLargeFamily => 'sf pro';
+  TextStyle get titleLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 20.0,
+      );
+  String get titleMediumFamily => 'sf pro';
+  TextStyle get titleMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 18.0,
+      );
+  String get titleSmallFamily => 'sf pro';
+  TextStyle get titleSmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 16.0,
+      );
+  String get labelLargeFamily => 'sf pro';
+  TextStyle get labelLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 16.0,
+      );
+  String get labelMediumFamily => 'sf pro';
+  TextStyle get labelMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 14.0,
+      );
+  String get labelSmallFamily => 'sf pro';
+  TextStyle get labelSmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 12.0,
+      );
+  String get bodyLargeFamily => 'sf pro';
+  TextStyle get bodyLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 16.0,
+      );
+  String get bodyMediumFamily => 'sf pro';
+  TextStyle get bodyMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 14.0,
+        fontStyle: FontStyle.normal,
+      );
+  String get bodySmallFamily => 'sf pro';
+  TextStyle get bodySmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 12.0,
+      );
+}
+
+class DesktopTypography extends Typography {
+  DesktopTypography(this.theme);
+
+  final FlutterFlowTheme theme;
+
+  String get displayLargeFamily => 'sf pro';
+  TextStyle get displayLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 64.0,
+      );
+  String get displayMediumFamily => 'sf pro';
+  TextStyle get displayMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 44.0,
+      );
+  String get displaySmallFamily => 'sf pro';
+  TextStyle get displaySmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 36.0,
+      );
+  String get headlineLargeFamily => 'sf pro';
+  TextStyle get headlineLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 32.0,
+      );
+  String get headlineMediumFamily => 'sf pro';
+  TextStyle get headlineMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 28.0,
+      );
+  String get headlineSmallFamily => 'sf pro';
+  TextStyle get headlineSmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 24.0,
+      );
+  String get titleLargeFamily => 'sf pro';
+  TextStyle get titleLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 20.0,
+      );
+  String get titleMediumFamily => 'sf pro';
+  TextStyle get titleMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 18.0,
+      );
+  String get titleSmallFamily => 'sf pro';
+  TextStyle get titleSmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.w600,
+        fontSize: 16.0,
+      );
+  String get labelLargeFamily => 'sf pro';
+  TextStyle get labelLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 16.0,
+      );
+  String get labelMediumFamily => 'sf pro';
+  TextStyle get labelMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 14.0,
+      );
+  String get labelSmallFamily => 'sf pro';
+  TextStyle get labelSmall => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 12.0,
+      );
+  String get bodyLargeFamily => 'sf pro';
+  TextStyle get bodyLarge => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 16.0,
+      );
+  String get bodyMediumFamily => 'sf pro';
+  TextStyle get bodyMedium => TextStyle(
+        fontFamily: 'sf pro',
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 14.0,
+        fontStyle: FontStyle.normal,
       );
   String get bodySmallFamily => 'sf pro';
   TextStyle get bodySmall => TextStyle(

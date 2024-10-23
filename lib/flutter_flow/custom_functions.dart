@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 DateTime? dynamicMonthSelector(int? month) {
@@ -34,4 +35,20 @@ DateTime? dynamicMonthSelectorCopy(int? month) {
 
   DateTime date = DateTime(2024, month, 1);
   return date;
+}
+
+List<int> hours() {
+  List<int> hoursList = [];
+  for (int i = 01; i <= 12; i++) {
+    hoursList.add(i);
+  }
+  return hoursList;
+}
+
+List<int> minitues() {
+  List<int> hoursList = [];
+  for (int i = 01; i <= 60; i++) {
+    hoursList.add(i);
+  }
+  return hoursList;
 }

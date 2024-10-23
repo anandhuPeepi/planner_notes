@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'splash_model.dart';
 export 'splash_model.dart';
 
@@ -39,7 +40,7 @@ class _SplashWidgetState extends State<SplashWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         body: SafeArea(
           top: true,
           child: Column(
@@ -53,14 +54,13 @@ class _SplashWidgetState extends State<SplashWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 150.0,
+                        width: 351.0,
                         height: 150.0,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF86C144),
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: Image.network(
-                              'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/meal-planner-3nia1o/assets/keywjn2qqtc8/Plagte.png',
+                            image: Image.asset(
+                              'assets/images/Untitled_design.png',
                             ).image,
                           ),
                           borderRadius: BorderRadius.circular(32.0),
@@ -78,9 +78,10 @@ class _SplashWidgetState extends State<SplashWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
-                                      fontFamily: 'sf pro',
+                                      fontFamily: 'sf pro bold 700',
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: false,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey('sf pro bold 700'),
                                     ),
                               ),
                               TextSpan(
@@ -88,21 +89,23 @@ class _SplashWidgetState extends State<SplashWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
-                                      fontFamily: 'sf pro',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      fontFamily: 'sf pro bold 700',
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: false,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey('sf pro bold 700'),
                                     ),
                               )
                             ],
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
-                                  fontFamily: 'sf pro',
+                                  fontFamily: 'sf pro medium 500',
                                   fontSize: 32.0,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: false,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey('sf pro medium 500'),
                                 ),
                           ),
                         ),
@@ -130,17 +133,18 @@ class _SplashWidgetState extends State<SplashWidget> {
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: const Color(0xFF86C144),
+                        color: FlutterFlowTheme.of(context).alternate,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'sf pro',
+                                  fontFamily: 'sf pro bold 700',
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: false,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey('sf pro bold 700'),
                                 ),
                         elevation: 0.0,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primary,
+                          width: 5.0,
                         ),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
@@ -176,9 +180,14 @@ class _SplashWidgetState extends State<SplashWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            fontFamily: 'sf pro',
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmallFamily,
                                             letterSpacing: 0.0,
-                                            useGoogleFonts: false,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodySmallFamily),
                                           ),
                                     ),
                                     TextSpan(
@@ -186,21 +195,28 @@ class _SplashWidgetState extends State<SplashWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'sf pro',
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                             decoration:
                                                 TextDecoration.underline,
-                                            useGoogleFonts: false,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
                                           ),
                                     )
                                   ],
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'sf pro',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
+                                        fontFamily: 'sf pro medium 500',
+                                        letterSpacing: 1.0,
+                                        fontWeight: FontWeight.w500,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey('sf pro medium 500'),
                                       ),
                                 ),
                               ),

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'forgot_password_model.dart';
 export 'forgot_password_model.dart';
 
@@ -59,13 +60,13 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                       borderColor: Colors.transparent,
                       borderRadius: 8.0,
                       buttonSize: 40.0,
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.chevron_left_sharp,
-                        color: Color(0xFF86C144),
+                        color: FlutterFlowTheme.of(context).alternate,
                         size: 30.0,
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
+                      onPressed: () async {
+                        context.safePop();
                       },
                     ),
                   ],
@@ -89,9 +90,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
-                                  fontFamily: 'sf pro',
+                                  fontFamily: 'sf pro bold 700',
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: false,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey('sf pro bold 700'),
                                 ),
                           ),
                         ),
@@ -114,9 +116,11 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'sf pro',
+                                            fontFamily: 'sf pro medium 500',
                                             letterSpacing: 0.0,
-                                            useGoogleFonts: false,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    'sf pro medium 500'),
                                           ),
                                     ),
                                     Padding(
@@ -128,9 +132,13 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'sf pro',
+                                              fontFamily: 'sf pro medium 500',
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: false,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey(
+                                                          'sf pro medium 500'),
                                             ),
                                       ),
                                     ),
@@ -197,11 +205,15 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'sf pro',
+                                              fontFamily:
+                                                  'sf pro semi bold 600',
                                               fontSize: 16.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts: false,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      'sf pro semi bold 600'),
                                               lineHeight: 1.0,
                                             ),
                                         minLines: 1,
@@ -252,18 +264,19 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                   0.0, 0.0, 0.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: const Color(0xFF86C144),
+                              color: FlutterFlowTheme.of(context).alternate,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: 'sf pro',
+                                    fontFamily: 'sf pro medium 500',
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: false,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('sf pro medium 500'),
                                   ),
-                              elevation: 0.0,
-                              borderSide: const BorderSide(
-                                color: Colors.transparent,
-                                width: 1.0,
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 5.0,
                               ),
                               borderRadius: BorderRadius.circular(25.0),
                             ),

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'sign_in_model.dart';
 export 'sign_in_model.dart';
 
@@ -83,9 +84,10 @@ class _SignInWidgetState extends State<SignInWidget> {
                           style: FlutterFlowTheme.of(context)
                               .displaySmall
                               .override(
-                                fontFamily: 'sf pro',
+                                fontFamily: 'sf pro medium 500',
                                 letterSpacing: 0.0,
-                                useGoogleFonts: false,
+                                useGoogleFonts: GoogleFonts.asMap()
+                                    .containsKey('sf pro medium 500'),
                               ),
                         ),
                       ),
@@ -110,10 +112,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'sf pro',
+                                            fontFamily: 'sf pro normal 400',
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            useGoogleFonts: false,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    'sf pro normal 400'),
                                           ),
                                     ),
                                   ),
@@ -165,11 +169,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'sf pro',
+                                          fontFamily: 'sf pro normal 400',
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey('sf pro normal 400'),
                                           lineHeight: 1.0,
                                         ),
                                     minLines: 1,
@@ -198,10 +203,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'sf pro',
+                                            fontFamily: 'sf pro normal 400',
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            useGoogleFonts: false,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    'sf pro normal 400'),
                                           ),
                                     ),
                                   ),
@@ -268,11 +275,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'sf pro',
+                                          fontFamily: 'sf pro normal 400',
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey('sf pro normal 400'),
                                           lineHeight: 1.0,
                                         ),
                                     cursorColor:
@@ -322,18 +330,19 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: const Color(0xFF86C144),
+                            color: FlutterFlowTheme.of(context).alternate,
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: 'sf pro',
+                                  fontFamily: 'sf pro normal 400',
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: false,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey('sf pro normal 400'),
                                 ),
                             elevation: 0.0,
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primary,
+                              width: 5.0,
                             ),
                             borderRadius: BorderRadius.circular(25.0),
                           ),
@@ -362,9 +371,14 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(
-                                        fontFamily: 'sf pro',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
+                                        fontFamily: 'sf pro medium 500',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 14.0,
+                                        letterSpacing: 1.0,
+                                        fontWeight: FontWeight.w500,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey('sf pro medium 500'),
                                       ),
                                 ),
                               ),
@@ -407,9 +421,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(
-                                    fontFamily: 'sf pro',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
+                                    fontFamily: 'sf pro normal 400',
+                                    letterSpacing: 1.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('sf pro normal 400'),
                                   ),
                             ),
                           ),
@@ -425,18 +441,19 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   0.0, 0.0, 0.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: const Color(0x4D86C144),
+                              color: FlutterFlowTheme.of(context).alternate,
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'sf pro',
+                                    fontFamily: 'sf pro medium 500',
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: false,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('sf pro medium 500'),
                                   ),
                               elevation: 0.0,
-                              borderSide: const BorderSide(
-                                color: Color(0xFF86C144),
-                                width: 2.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 5.0,
                               ),
                               borderRadius: BorderRadius.circular(25.0),
                             ),

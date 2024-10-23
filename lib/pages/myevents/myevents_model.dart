@@ -1,3 +1,4 @@
+import '/components/cust_navbar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'myevents_widget.dart' show MyeventsWidget;
 import 'package:flutter/material.dart';
@@ -11,9 +12,18 @@ class MyeventsModel extends FlutterFlowModel<MyeventsWidget> {
 
   bool isPendingSelected = true;
 
-  @override
-  void initState(BuildContext context) {}
+  ///  State fields for stateful widgets in this page.
+
+  // Model for CustNavbar component.
+  late CustNavbarModel custNavbarModel;
 
   @override
-  void dispose() {}
+  void initState(BuildContext context) {
+    custNavbarModel = createModel(context, () => CustNavbarModel());
+  }
+
+  @override
+  void dispose() {
+    custNavbarModel.dispose();
+  }
 }

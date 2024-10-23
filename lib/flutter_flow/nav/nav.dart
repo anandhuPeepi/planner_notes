@@ -1,17 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
+export '/backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -72,40 +75,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const SplashWidget(),
+      errorBuilder: (context, state) => _RouteErrorBuilder(
+        state: state,
+        child: appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
+      ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const SplashWidget(),
+              appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
           requireAuth: true,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(
-                  userName: params.getParam(
-                    'userName',
-                    ParamType.String,
-                  ),
-                ),
-        ),
-        FFRoute(
-          name: 'toDo',
-          path: '/toDo',
-          builder: (context, params) =>
-              params.isEmpty ? const NavBarPage(initialPage: 'toDo') : const ToDoWidget(),
+          builder: (context, params) => HomePageWidget(
+            userName: params.getParam(
+              'userName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'calender',
           path: '/calender',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'calender')
-              : const CalenderWidget(),
+          requireAuth: true,
+          builder: (context, params) => const CalenderWidget(),
         ),
         FFRoute(
           name: 'SignIn',
@@ -125,14 +121,87 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ForgotPassword',
           path: '/forgotPassword',
+          requireAuth: true,
           builder: (context, params) => const ForgotPasswordWidget(),
         ),
         FFRoute(
           name: 'Myevents',
           path: '/myevents',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Myevents')
-              : const MyeventsWidget(),
+          requireAuth: true,
+          builder: (context, params) => const MyeventsWidget(),
+        ),
+        FFRoute(
+          name: 'profile',
+          path: '/profile',
+          requireAuth: true,
+          builder: (context, params) => const ProfileWidget(),
+        ),
+        FFRoute(
+          name: 'editProfile',
+          path: '/editProfile',
+          requireAuth: true,
+          builder: (context, params) => const EditProfileWidget(),
+        ),
+        FFRoute(
+          name: 'ComingSoon',
+          path: '/comingSoon',
+          requireAuth: true,
+          builder: (context, params) => const ComingSoonWidget(),
+        ),
+        FFRoute(
+          name: 'changePassword',
+          path: '/ResetPsswrd',
+          requireAuth: true,
+          builder: (context, params) => const ChangePasswordWidget(),
+        ),
+        FFRoute(
+          name: 'dummy',
+          path: '/dummy',
+          requireAuth: true,
+          builder: (context, params) => const DummyWidget(),
+        ),
+        FFRoute(
+          name: 'createEventPage',
+          path: '/createEventPage',
+          requireAuth: true,
+          builder: (context, params) => CreateEventPageWidget(
+            selDate: params.getParam(
+              'selDate',
+              ParamType.DateTime,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'tets',
+          path: '/tets',
+          requireAuth: true,
+          builder: (context, params) => const TetsWidget(),
+        ),
+        FFRoute(
+          name: 'SharedTodo',
+          path: '/MyeventsCopy',
+          requireAuth: true,
+          builder: (context, params) => const SharedTodoWidget(),
+        ),
+        FFRoute(
+          name: 'taskviewpage',
+          path: '/taskviewpage',
+          requireAuth: true,
+          asyncParams: {
+            'taskDetaILS': getDoc(['user', 'tasks'], TasksRecord.fromSnapshot),
+          },
+          builder: (context, params) => TaskviewpageWidget(
+            taskDetaILS: params.getParam(
+              'taskDetaILS',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'PriorityTaskPage',
+          path: '/SharedTodoCopy',
+          requireAuth: true,
+          builder: (context, params) => const PriorityTaskPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -252,6 +321,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -270,6 +340,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }
@@ -317,15 +388,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: FlutterFlowTheme.of(context).primary,
+                  child: Image.asset(
+                    'assets/images/Untitled_design.png',
+                    fit: BoxFit.contain,
                   ),
                 )
               : page;
@@ -371,6 +438,57 @@ class TransitionInfo {
   final Alignment? alignment;
 
   static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+}
+
+class _RouteErrorBuilder extends StatefulWidget {
+  const _RouteErrorBuilder({
+    required this.state,
+    required this.child,
+  });
+
+  final GoRouterState state;
+  final Widget child;
+
+  @override
+  State<_RouteErrorBuilder> createState() => _RouteErrorBuilderState();
+}
+
+class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Handle erroneous links from Firebase Dynamic Links.
+
+    String? location;
+
+    /*
+    Handle `links` routes that have dynamic-link entangled with deep-link 
+    */
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.queryParameters.containsKey('deep_link_id')) {
+      final deepLinkId = widget.state.uri.queryParameters['deep_link_id'];
+      if (deepLinkId != null) {
+        final deepLinkUri = Uri.parse(deepLinkId);
+        final link = deepLinkUri.toString();
+        final host = deepLinkUri.host;
+        location = link.split(host).last;
+      }
+    }
+
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.toString().contains('request_ip_version')) {
+      location = '/';
+    }
+
+    if (location != null) {
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) => context.go(location!));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 class RootPageContext {

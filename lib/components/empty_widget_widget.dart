@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'empty_widget_model.dart';
 export 'empty_widget_model.dart';
 
@@ -54,7 +55,7 @@ class _EmptyWidgetWidgetState extends State<EmptyWidgetWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Icon(
                 Icons.task_alt,
-                color: FlutterFlowTheme.of(context).secondaryText,
+                color: FlutterFlowTheme.of(context).alternate,
                 size: 48.0,
               ),
             ),
@@ -64,10 +65,11 @@ class _EmptyWidgetWidgetState extends State<EmptyWidgetWidget> {
                 'You don\'t have any tasks on this day',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                      fontFamily: 'sf pro',
-                      color: FlutterFlowTheme.of(context).secondaryText,
+                      fontFamily: 'sf pro normal 400',
+                      color: FlutterFlowTheme.of(context).alternate,
                       letterSpacing: 0.0,
-                      useGoogleFonts: false,
+                      useGoogleFonts:
+                          GoogleFonts.asMap().containsKey('sf pro normal 400'),
                     ),
               ),
             ),
@@ -76,9 +78,10 @@ class _EmptyWidgetWidgetState extends State<EmptyWidgetWidget> {
               child: Text(
                 'Click the + button to create new task',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'sf pro',
-                      letterSpacing: 0.0,
-                      useGoogleFonts: false,
+                      fontFamily: 'sf pro normal 400',
+                      letterSpacing: 1.0,
+                      useGoogleFonts:
+                          GoogleFonts.asMap().containsKey('sf pro normal 400'),
                     ),
               ),
             ),
