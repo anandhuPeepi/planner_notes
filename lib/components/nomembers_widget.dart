@@ -44,16 +44,20 @@ class _NomembersWidgetState extends State<NomembersWidget> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            'No Members Added',
-            textAlign: TextAlign.center,
-            style: FlutterFlowTheme.of(context).headlineSmall.override(
-                  fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
-                  fontSize: 12.0,
-                  letterSpacing: 0.0,
-                  useGoogleFonts: GoogleFonts.asMap().containsKey(
-                      FlutterFlowTheme.of(context).headlineSmallFamily),
-                ),
+          Container(
+            decoration: const BoxDecoration(),
+            child: Text(
+              'No Members Added',
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).headlineSmall.override(
+                    fontFamily:
+                        FlutterFlowTheme.of(context).headlineSmallFamily,
+                    fontSize: 12.0,
+                    letterSpacing: 0.0,
+                    useGoogleFonts: GoogleFonts.asMap().containsKey(
+                        FlutterFlowTheme.of(context).headlineSmallFamily),
+                  ),
+            ),
           ),
         ].divide(const SizedBox(height: 12.0)),
       ),

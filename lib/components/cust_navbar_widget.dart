@@ -49,7 +49,14 @@ class _CustNavbarWidgetState extends State<CustNavbarWidget> {
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 60.0,
-        decoration: const BoxDecoration(),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(0.0),
+            bottomRight: Radius.circular(0.0),
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+        ),
         child: Stack(
           children: [
             Container(
@@ -57,6 +64,12 @@ class _CustNavbarWidgetState extends State<CustNavbarWidget> {
               height: 70.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(0.0),
+                  bottomRight: Radius.circular(0.0),
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
               ),
             ),
             Row(
@@ -112,6 +125,12 @@ class _CustNavbarWidgetState extends State<CustNavbarWidget> {
                     onPressed: () async {
                       context.goNamed(
                         'calender',
+                        queryParameters: {
+                          'date': serializeParam(
+                            getCurrentTimestamp,
+                            ParamType.DateTime,
+                          ),
+                        }.withoutNulls,
                         extra: <String, dynamic>{
                           kTransitionInfoKey: const TransitionInfo(
                             hasTransition: true,

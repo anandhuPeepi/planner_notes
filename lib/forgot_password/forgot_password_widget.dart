@@ -149,7 +149,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                         controller:
                                             _model.emailAddressTextController,
                                         focusNode: _model.emailAddressFocusNode,
-                                        autofocus: false,
+                                        autofocus: true,
                                         autofillHints: const [AutofillHints.name],
                                         textCapitalization:
                                             TextCapitalization.none,
@@ -221,7 +221,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                             TextInputType.emailAddress,
                                         cursorColor:
                                             FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .alternate,
                                         validator: _model
                                             .emailAddressTextControllerValidator
                                             .asValidator(context),

@@ -13,30 +13,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
-DateTime? dynamicMonthSelector(int? month) {
-  if (month == null) {
-    return null; // Return null if month is null
-  }
-
-  if (month < 1 || month > 12) {
-    return null; // Return null for invalid months
-  }
-
-  // Create a DateTime object for the first day of the specified month in 2024
-  DateTime date = DateTime(2024, month, 1);
-  return date; // Return the DateTime object
-}
-
-DateTime? dynamicMonthSelectorCopy(int? month) {
-  // return a dateTime where month as argument
-  if (month == null || month < 1 || month > 12) {
-    return null;
-  }
-
-  DateTime date = DateTime(2024, month, 1);
-  return date;
-}
-
 List<int> hours() {
   List<int> hoursList = [];
   for (int i = 01; i <= 12; i++) {

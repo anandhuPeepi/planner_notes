@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -16,12 +16,24 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _initialDate = prefs.containsKey('ff_initialDate')
+          ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_initialDate')!)
+          : _initialDate;
+    });
+    _safeInit(() {
+      _userRef = prefs.getString('ff_userRef')?.ref ?? _userRef;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
+
+  late SharedPreferences prefs;
 
   Color _gradient1 = const Color(0xffe7b9cb);
   Color get gradient1 => _gradient1;
@@ -92,6 +104,42 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInIcons(int index, IconsStruct value) {
     icons.insert(index, value);
   }
+
+  bool _isFirstLoad = false;
+  bool get isFirstLoad => _isFirstLoad;
+  set isFirstLoad(bool value) {
+    _isFirstLoad = value;
+  }
+
+  DateTime? _initialDate;
+  DateTime? get initialDate => _initialDate;
+  set initialDate(DateTime? value) {
+    _initialDate = value;
+    value != null
+        ? prefs.setInt('ff_initialDate', value.millisecondsSinceEpoch)
+        : prefs.remove('ff_initialDate');
+  }
+
+  DocumentReference? _userRef;
+  DocumentReference? get userRef => _userRef;
+  set userRef(DocumentReference? value) {
+    _userRef = value;
+    value != null
+        ? prefs.setString('ff_userRef', value.path)
+        : prefs.remove('ff_userRef');
+  }
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }
 
 Color? _colorFromIntValue(int? val) {

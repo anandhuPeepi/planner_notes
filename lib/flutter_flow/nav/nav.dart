@@ -8,7 +8,6 @@ import '/backend/backend.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -77,14 +76,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
-        child: appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
+        child: RootPageContext.wrap(
+          appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
+          errorRoute: state.uri.toString(),
+        ),
       ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
+          builder: (context, _) => RootPageContext.wrap(
+            appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
+          ),
         ),
         FFRoute(
           name: 'HomePage',
@@ -101,7 +104,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'calender',
           path: '/calender',
           requireAuth: true,
-          builder: (context, params) => const CalenderWidget(),
+          builder: (context, params) => CalenderWidget(
+            date: params.getParam(
+              'date',
+              ParamType.DateTime,
+            ),
+          ),
         ),
         FFRoute(
           name: 'SignIn',
@@ -155,12 +163,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ChangePasswordWidget(),
         ),
         FFRoute(
-          name: 'dummy',
-          path: '/dummy',
-          requireAuth: true,
-          builder: (context, params) => const DummyWidget(),
-        ),
-        FFRoute(
           name: 'createEventPage',
           path: '/createEventPage',
           requireAuth: true,
@@ -172,15 +174,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'tets',
-          path: '/tets',
-          requireAuth: true,
-          builder: (context, params) => const TetsWidget(),
-        ),
-        FFRoute(
           name: 'SharedTodo',
           path: '/MyeventsCopy',
-          requireAuth: true,
           builder: (context, params) => const SharedTodoWidget(),
         ),
         FFRoute(
@@ -202,6 +197,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/SharedTodoCopy',
           requireAuth: true,
           builder: (context, params) => const PriorityTaskPageWidget(),
+        ),
+        FFRoute(
+          name: 'otherUserProfile',
+          path: '/otherUserProfile',
+          requireAuth: true,
+          asyncParams: {
+            'usersInfo': getDoc(['user'], UserRecord.fromSnapshot),
+          },
+          builder: (context, params) => OtherUserProfileWidget(
+            usersInfo: params.getParam(
+              'usersInfo',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'AllMembersList',
+          path: '/allMembersList',
+          requireAuth: true,
+          builder: (context, params) => const AllMembersListWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -389,10 +404,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: Colors.transparent,
                   child: Image.asset(
-                    'assets/images/Untitled_design.png',
-                    fit: BoxFit.contain,
+                    'assets/images/9_(2).png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

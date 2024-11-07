@@ -8,7 +8,9 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -34,6 +36,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.initState();
     _model = createModel(context, () => HomePageModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (RootPageContext.isInactiveRootPage(context)) {
+        return;
+      }
+      FFAppState().isFirstLoad = true;
+      FFAppState().initialDate = getCurrentTimestamp;
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -46,36 +57,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFFAFAFA),
-        body: SafeArea(
-          top: true,
-          child: Container(
-            height: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/calender.png',
-                ).image,
-              ),
-              shape: BoxShape.rectangle,
+        body: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: Image.asset(
+                'assets/images/calender.png',
+              ).image,
             ),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 60.0),
+            shape: BoxShape.rectangle,
+          ),
+          child: Stack(
+            children: [
+              Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 70.0),
                   child: SingleChildScrollView(
+                    primary: false,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: 164.0,
+                          height: 170.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
                             borderRadius: const BorderRadius.only(
@@ -100,7 +114,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     decoration: const BoxDecoration(),
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          14.0, 0.0, 14.0, 0.0),
+                                          14.0, 15.0, 14.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -109,7 +123,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Container(
-                                            width: 54.0,
                                             height: 70.0,
                                             decoration: const BoxDecoration(),
                                             alignment:
@@ -225,7 +238,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           Opacity(
                                             opacity: 0.0,
                                             child: Text(
-                                              'Hello World',
+                                              'eeee',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -307,7 +320,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     opacity: 0.8,
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          14.0, 8.0, 0.0, 0.0),
+                                          14.0, 16.0, 0.0, 0.0),
                                       child: Text(
                                         dateTimeFormat(
                                           "MMMMEEEEd",
@@ -339,7 +352,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -355,44 +367,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     topRight: Radius.circular(14.0),
                                   ),
                                 ),
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Stack(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 40.0),
-                                        child: PageView(
-                                          controller: _model
-                                                  .pageViewController ??=
-                                              PageController(initialPage: 0),
-                                          scrollDirection: Axis.horizontal,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 14.0, 0.0, 10.0),
-                                                  child: Container(
-                                                    width: 377.0,
-                                                    height: 129.0,
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(0x26BBAACC),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  14.0,
-                                                                  0.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: Stack(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 40.0),
+                                          child: PageView(
+                                            controller: _model
+                                                    .pageViewController ??=
+                                                PageController(initialPage: 0),
+                                            scrollDirection: Axis.horizontal,
+                                            children: [
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 14.0,
+                                                                0.0, 10.0),
+                                                    child: Container(
+                                                      width: double.infinity,
+                                                      height: 129.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            const Color(0x26BBAACC),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(14.0),
+                                                      ),
                                                       child: InkWell(
                                                         splashColor:
                                                             Colors.transparent,
@@ -578,257 +588,262 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 14.0, 0.0, 10.0),
-                                                  child: Container(
-                                                    width: 377.0,
-                                                    height: 129.0,
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(0x26BBAACC),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  5.0),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          context.pushNamed(
-                                                              'ComingSoon');
-                                                        },
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Flexible(
-                                                              child: Container(
-                                                                width: 176.0,
-                                                                height: MediaQuery.sizeOf(
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 14.0,
+                                                                0.0, 10.0),
+                                                    child: Container(
+                                                      width: 421.0,
+                                                      height: 129.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            const Color(0x26BBAACC),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(14.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    5.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                                'ComingSoon');
+                                                          },
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Flexible(
+                                                                child:
+                                                                    Container(
+                                                                  width: 176.0,
+                                                                  height: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .height *
+                                                                      1.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .height *
-                                                                    1.0,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                    image: Image
-                                                                        .network(
-                                                                      'https://media.istockphoto.com/id/1371550721/photo/multi-ethnic-business-team.jpg?s=612x612&w=0&k=20&c=_0RaWzfxIBJm0svshKFnJevIUqO0MVFDOQGnX-Mzpz0=',
-                                                                    ).image,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      const BorderRadius
-                                                                          .only(
-                                                                    bottomLeft:
-                                                                        Radius.circular(
-                                                                            14.0),
-                                                                    bottomRight:
-                                                                        Radius.circular(
-                                                                            0.0),
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            14.0),
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            0.0),
+                                                                        .primary,
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      image: Image
+                                                                          .network(
+                                                                        'https://media.istockphoto.com/id/1371550721/photo/multi-ethnic-business-team.jpg?s=612x612&w=0&k=20&c=_0RaWzfxIBJm0svshKFnJevIUqO0MVFDOQGnX-Mzpz0=',
+                                                                      ).image,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      bottomLeft:
+                                                                          Radius.circular(
+                                                                              14.0),
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              0.0),
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              14.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              0.0),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          14.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    'Upgrade to teams plan',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'sf pro normal 400',
-                                                                          color:
-                                                                              const Color(0xFFA5ACAD),
-                                                                          fontSize:
-                                                                              12.0,
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey('sf pro normal 400'),
-                                                                        ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Collab with your teams',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'sf pro normal 400',
-                                                                          color:
-                                                                              const Color(0xFF2F3334),
-                                                                          fontSize:
-                                                                              13.0,
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey('sf pro normal 400'),
-                                                                        ),
-                                                                  ),
-                                                                  Align(
-                                                                    alignment:
-                                                                        const AlignmentDirectional(
-                                                                            1.0,
-                                                                            1.0),
-                                                                    child:
-                                                                        FFButtonWidget(
-                                                                      onPressed:
-                                                                          () {
-                                                                        print(
-                                                                            'Button pressed ...');
-                                                                      },
-                                                                      text:
-                                                                          'UPGRADE',
-                                                                      options:
-                                                                          FFButtonOptions(
-                                                                        width:
-                                                                            135.0,
-                                                                        height:
-                                                                            38.0,
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                            16.0,
-                                                                            0.0,
-                                                                            16.0,
-                                                                            0.0),
-                                                                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            14.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                        textStyle: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .override(
-                                                                              fontFamily: 'sf pro bold 700',
-                                                                              color: const Color(0xFF040404),
-                                                                              fontSize: 12.0,
-                                                                              letterSpacing: 2.0,
-                                                                              fontWeight: FontWeight.bold,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey('sf pro bold 700'),
-                                                                            ),
-                                                                        elevation:
-                                                                            0.0,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(19.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Upgrade to teams plan',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'sf pro normal 400',
+                                                                            color:
+                                                                                const Color(0xFFA5ACAD),
+                                                                            fontSize:
+                                                                                12.0,
+                                                                            letterSpacing:
+                                                                                1.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                            useGoogleFonts:
+                                                                                GoogleFonts.asMap().containsKey('sf pro normal 400'),
+                                                                          ),
+                                                                    ),
+                                                                    Text(
+                                                                      'Collab with your teams',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'sf pro normal 400',
+                                                                            color:
+                                                                                const Color(0xFF2F3334),
+                                                                            fontSize:
+                                                                                13.0,
+                                                                            letterSpacing:
+                                                                                1.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                            useGoogleFonts:
+                                                                                GoogleFonts.asMap().containsKey('sf pro normal 400'),
+                                                                          ),
+                                                                    ),
+                                                                    Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                      child:
+                                                                          FFButtonWidget(
+                                                                        onPressed:
+                                                                            () {
+                                                                          print(
+                                                                              'Button pressed ...');
+                                                                        },
+                                                                        text:
+                                                                            'UPGRADE',
+                                                                        options:
+                                                                            FFButtonOptions(
+                                                                          width:
+                                                                              135.0,
+                                                                          height:
+                                                                              38.0,
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                              16.0,
+                                                                              0.0,
+                                                                              16.0,
+                                                                              0.0),
+                                                                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          textStyle: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
+                                                                              .override(
+                                                                                fontFamily: 'sf pro bold 700',
+                                                                                color: const Color(0xFF040404),
+                                                                                fontSize: 12.0,
+                                                                                letterSpacing: 2.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey('sf pro bold 700'),
+                                                                              ),
+                                                                          elevation:
+                                                                              0.0,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(19.0),
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 1.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 16.0),
-                                          child: smooth_page_indicator
-                                              .SmoothPageIndicator(
-                                            controller: _model
-                                                    .pageViewController ??=
-                                                PageController(initialPage: 0),
-                                            count: 2,
-                                            axisDirection: Axis.horizontal,
-                                            onDotClicked: (i) async {
-                                              await _model.pageViewController!
-                                                  .animateToPage(
-                                                i,
-                                                duration:
-                                                    const Duration(milliseconds: 500),
-                                                curve: Curves.ease,
-                                              );
-                                              safeSetState(() {});
-                                            },
-                                            effect: smooth_page_indicator
-                                                .SlideEffect(
-                                              spacing: 8.0,
-                                              radius: 8.0,
-                                              dotWidth: 8.0,
-                                              dotHeight: 8.0,
-                                              dotColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent1,
-                                              activeDotColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              paintStyle: PaintingStyle.fill,
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(0.0, 1.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 16.0),
+                                            child: smooth_page_indicator
+                                                .SmoothPageIndicator(
+                                              controller:
+                                                  _model.pageViewController ??=
+                                                      PageController(
+                                                          initialPage: 0),
+                                              count: 2,
+                                              axisDirection: Axis.horizontal,
+                                              onDotClicked: (i) async {
+                                                await _model.pageViewController!
+                                                    .animateToPage(
+                                                  i,
+                                                  duration: const Duration(
+                                                      milliseconds: 500),
+                                                  curve: Curves.ease,
+                                                );
+                                                safeSetState(() {});
+                                              },
+                                              effect: smooth_page_indicator
+                                                  .SlideEffect(
+                                                spacing: 8.0,
+                                                radius: 8.0,
+                                                dotWidth: 8.0,
+                                                dotHeight: 8.0,
+                                                dotColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                activeDotColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                paintStyle: PaintingStyle.fill,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -879,86 +894,44 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             },
                                             child: Stack(
                                               children: [
-                                                Opacity(
-                                                  opacity: 0.0,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                65.0,
-                                                                14.0,
-                                                                14.0,
-                                                                0.0),
-                                                    child: Container(
-                                                      width: 71.0,
-                                                      height: 30.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            const Color(0x4AFFFFFF),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(17.0),
-                                                      ),
-                                                      child: Align(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                0.0, 0.0),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 0.0, 0.0),
+                                                  child: Stack(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    14.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         child: Text(
-                                                          '15 days',
+                                                          'Shared To Do',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'sf pro normal 400',
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 12.0,
+                                                                    'sf pro bold 700',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                                 letterSpacing:
                                                                     1.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .bold,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
-                                                                        'sf pro normal 400'),
+                                                                        'sf pro bold 700'),
                                                               ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          -1.35, -1.16),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(14.0,
-                                                                15.0, 0.0, 0.0),
-                                                    child: Text(
-                                                      'Shared To Do',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'sf pro bold 700',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondary,
-                                                            letterSpacing: 1.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        'sf pro bold 700'),
-                                                          ),
-                                                    ),
+                                                    ],
                                                   ),
                                                 ),
                                                 Opacity(
@@ -1055,54 +1028,55 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 30.0, 0.0, 0.0),
+                                  0.0, 30.0, 0.0, 5.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  if (true /* Warning: Trying to access variable not yet defined. */)
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          14.0, 0.0, 14.0, 10.0),
-                                      child: StreamBuilder<List<TasksRecord>>(
-                                        stream: queryTasksRecord(
-                                          queryBuilder: (tasksRecord) =>
-                                              tasksRecord
-                                                  .where(
-                                                    'isPriority',
-                                                    isEqualTo: true,
-                                                  )
-                                                  .where(
-                                                    'uid',
-                                                    isEqualTo:
-                                                        currentUserReference,
-                                                  ),
-                                          limit: 5,
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        14.0, 0.0, 14.0, 10.0),
+                                    child: StreamBuilder<List<TasksRecord>>(
+                                      stream: queryTasksRecord(
+                                        queryBuilder: (tasksRecord) =>
+                                            tasksRecord
+                                                .where(
+                                                  'isPriority',
+                                                  isEqualTo: true,
+                                                )
+                                                .where(
+                                                  'uid',
+                                                  isEqualTo:
+                                                      currentUserReference,
+                                                )
+                                                .orderBy('taskDate'),
+                                        limit: 5,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                                 ),
                                               ),
-                                            );
-                                          }
-                                          List<TasksRecord>
-                                              containerTasksRecordList =
-                                              snapshot.data!;
+                                            ),
+                                          );
+                                        }
+                                        List<TasksRecord>
+                                            containerTasksRecordList =
+                                            snapshot.data!;
 
-                                          return Container(
-                                            decoration: const BoxDecoration(),
+                                        return Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Visibility(
+                                            visible: loggedIn == true,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -1147,7 +1121,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         14.0,
                                                                         14.0,
                                                                         14.0,
-                                                                        0.0),
+                                                                        14.0),
                                                             child: Row(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -1164,32 +1138,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       const AlignmentDirectional(
                                                                           0.0,
                                                                           -1.0),
-                                                                  child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      etteItem
-                                                                          .taskName,
-                                                                      'NA',
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        275.0,
+                                                                    decoration:
+                                                                        const BoxDecoration(),
+                                                                    child: Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        etteItem
+                                                                            .taskName,
+                                                                        'NA',
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'sf pro medium 500',
+                                                                            letterSpacing:
+                                                                                1.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                            useGoogleFonts:
+                                                                                GoogleFonts.asMap().containsKey('sf pro medium 500'),
+                                                                          ),
                                                                     ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'sf pro medium 500',
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey('sf pro medium 500'),
-                                                                        ),
                                                                   ),
                                                                 ),
                                                                 Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
-                                                                          .min,
+                                                                          .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
                                                                           .end,
@@ -1221,12 +1205,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .showSnackBar(
                                                                             SnackBar(
                                                                               content: Text(
-                                                                                'You marked the Task as finished',
+                                                                                'You marked the Task as unfinished',
                                                                                 style: TextStyle(
                                                                                   color: FlutterFlowTheme.of(context).primary,
                                                                                 ),
                                                                               ),
-                                                                              duration: const Duration(milliseconds: 2050),
+                                                                              duration: const Duration(milliseconds: 850),
                                                                               backgroundColor: FlutterFlowTheme.of(context).tertiary,
                                                                             ),
                                                                           );
@@ -1294,7 +1278,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                   color: FlutterFlowTheme.of(context).primary,
                                                                                 ),
                                                                               ),
-                                                                              duration: const Duration(milliseconds: 1900),
+                                                                              duration: const Duration(milliseconds: 850),
                                                                               backgroundColor: FlutterFlowTheme.of(context).tertiary,
                                                                             ),
                                                                           );
@@ -1386,10 +1370,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 ),
                                               ],
                                             ),
-                                          );
-                                        },
-                                      ),
+                                          ),
+                                        );
+                                      },
                                     ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -1399,23 +1384,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: const BoxDecoration(),
-                    child: wrapWithModel(
-                      model: _model.custNavbarModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: const CustNavbarWidget(
-                        pageName: 'homePage',
-                      ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, 1.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 60.0,
+                  decoration: const BoxDecoration(),
+                  child: wrapWithModel(
+                    model: _model.custNavbarModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: const CustNavbarWidget(
+                      pageName: 'homePage',
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -85,6 +85,11 @@ class TasksRecord extends FirestoreRecord {
   String get hostedBy => _hostedBy ?? '';
   bool hasHostedBy() => _hostedBy != null;
 
+  // "addedMembers" field.
+  List<DocumentReference>? _addedMembers;
+  List<DocumentReference> get addedMembers => _addedMembers ?? const [];
+  bool hasAddedMembers() => _addedMembers != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -102,6 +107,7 @@ class TasksRecord extends FirestoreRecord {
     _icon = snapshotData['icon'] as String?;
     _assignedUsersid = getDataList(snapshotData['assignedUsersid']);
     _hostedBy = snapshotData['hostedBy'] as String?;
+    _addedMembers = getDataList(snapshotData['addedMembers']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -197,7 +203,8 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
         e1?.eventAmPm == e2?.eventAmPm &&
         e1?.icon == e2?.icon &&
         listEquality.equals(e1?.assignedUsersid, e2?.assignedUsersid) &&
-        e1?.hostedBy == e2?.hostedBy;
+        e1?.hostedBy == e2?.hostedBy &&
+        listEquality.equals(e1?.addedMembers, e2?.addedMembers);
   }
 
   @override
@@ -215,7 +222,8 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
         e?.eventAmPm,
         e?.icon,
         e?.assignedUsersid,
-        e?.hostedBy
+        e?.hostedBy,
+        e?.addedMembers
       ]);
 
   @override

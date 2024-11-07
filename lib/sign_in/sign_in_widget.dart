@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -125,7 +126,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                                     controller:
                                         _model.emailAddressTextController,
                                     focusNode: _model.emailAddressFocusNode,
-                                    autofocus: false,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.emailAddressTextController',
+                                      const Duration(milliseconds: 2000),
+                                      () => safeSetState(() {}),
+                                    ),
+                                    autofocus: true,
                                     autofillHints: const [AutofillHints.email],
                                     textInputAction: TextInputAction.next,
                                     obscureText: false,
@@ -165,6 +171,24 @@ class _SignInWidgetState extends State<SignInWidget> {
                                       filled: true,
                                       fillColor: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      suffixIcon: _model
+                                              .emailAddressTextController!
+                                              .text
+                                              .isNotEmpty
+                                          ? InkWell(
+                                              onTap: () async {
+                                                _model
+                                                    .emailAddressTextController
+                                                    ?.clear();
+                                                safeSetState(() {});
+                                              },
+                                              child: const Icon(
+                                                Icons.clear,
+                                                color: Color(0xFF757575),
+                                                size: 22.0,
+                                              ),
+                                            )
+                                          : null,
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -180,7 +204,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                     minLines: 1,
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor:
-                                        FlutterFlowTheme.of(context).primary,
+                                        FlutterFlowTheme.of(context).alternate,
                                     validator: _model
                                         .emailAddressTextControllerValidator
                                         .asValidator(context),
@@ -215,7 +239,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   TextFormField(
                                     controller: _model.passwordTextController,
                                     focusNode: _model.passwordFocusNode,
-                                    autofocus: false,
+                                    autofocus: true,
                                     autofillHints: const [AutofillHints.password],
                                     textInputAction: TextInputAction.done,
                                     obscureText: !_model.passwordVisibility,
@@ -284,7 +308,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           lineHeight: 1.0,
                                         ),
                                     cursorColor:
-                                        FlutterFlowTheme.of(context).primary,
+                                        FlutterFlowTheme.of(context).alternate,
                                     validator: _model
                                         .passwordTextControllerValidator
                                         .asValidator(context),
@@ -446,7 +470,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'sf pro medium 500',
-                                    letterSpacing: 0.0,
+                                    letterSpacing: 1.0,
+                                    fontWeight: FontWeight.w500,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey('sf pro medium 500'),
                                   ),

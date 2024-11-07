@@ -49,8 +49,8 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
                     'assets/images/nswz3_9.png',
-                    width: 200.0,
-                    height: 482.0,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 0.0,
                     fit: BoxFit.cover,
                   ),
                 ),

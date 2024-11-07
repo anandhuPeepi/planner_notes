@@ -55,6 +55,26 @@ class UserRecord extends FirestoreRecord {
   List<DocumentReference> get relation => _relation ?? const [];
   bool hasRelation() => _relation != null;
 
+  // "myFollowing" field.
+  List<DocumentReference>? _myFollowing;
+  List<DocumentReference> get myFollowing => _myFollowing ?? const [];
+  bool hasMyFollowing() => _myFollowing != null;
+
+  // "myFollowers" field.
+  List<DocumentReference>? _myFollowers;
+  List<DocumentReference> get myFollowers => _myFollowers ?? const [];
+  bool hasMyFollowers() => _myFollowers != null;
+
+  // "userRef" field.
+  DocumentReference? _userRef;
+  DocumentReference? get userRef => _userRef;
+  bool hasUserRef() => _userRef != null;
+
+  // "userRefs" field.
+  List<DocumentReference>? _userRefs;
+  List<DocumentReference> get userRefs => _userRefs ?? const [];
+  bool hasUserRefs() => _userRefs != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -64,6 +84,10 @@ class UserRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _isFinished = snapshotData['isFinished'] as bool?;
     _relation = getDataList(snapshotData['relation']);
+    _myFollowing = getDataList(snapshotData['myFollowing']);
+    _myFollowers = getDataList(snapshotData['myFollowers']);
+    _userRef = snapshotData['userRef'] as DocumentReference?;
+    _userRefs = getDataList(snapshotData['userRefs']);
   }
 
   static CollectionReference get collection =>
@@ -107,6 +131,7 @@ Map<String, dynamic> createUserRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   bool? isFinished,
+  DocumentReference? userRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -117,6 +142,7 @@ Map<String, dynamic> createUserRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'isFinished': isFinished,
+      'userRef': userRef,
     }.withoutNulls,
   );
 
@@ -136,7 +162,11 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.isFinished == e2?.isFinished &&
-        listEquality.equals(e1?.relation, e2?.relation);
+        listEquality.equals(e1?.relation, e2?.relation) &&
+        listEquality.equals(e1?.myFollowing, e2?.myFollowing) &&
+        listEquality.equals(e1?.myFollowers, e2?.myFollowers) &&
+        e1?.userRef == e2?.userRef &&
+        listEquality.equals(e1?.userRefs, e2?.userRefs);
   }
 
   @override
@@ -148,7 +178,11 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.isFinished,
-        e?.relation
+        e?.relation,
+        e?.myFollowing,
+        e?.myFollowers,
+        e?.userRef,
+        e?.userRefs
       ]);
 
   @override

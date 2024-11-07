@@ -19,6 +19,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
+  String currentPageLink = '';
   // Model for CustNavbar component.
   late CustNavbarModel custNavbarModel;
 

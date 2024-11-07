@@ -4,9 +4,9 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-const _kDynamicLinksUrl = 'https://mydailyplannerapp.page.link';
+const _kDynamicLinksUrl = 'https://schedulerplannertracker.page.link';
 const _kAppBundleId = 'com.mycompany.mydailyplannerapp';
-const _kIosAppId = '6477621778';
+const _kIosAppId = '6737765754';
 
 Future<String> generateCurrentPageLink(
   BuildContext context, {

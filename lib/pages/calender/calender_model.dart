@@ -7,15 +7,11 @@ import 'package:flutter/material.dart';
 class CalenderModel extends FlutterFlowModel<CalenderWidget> {
   ///  Local state fields for this page.
 
-  DateTime? initialDate;
-
   bool isWeekViewSelected = true;
 
   DateTime? userPickedDate;
 
   bool weekTogle = true;
-
-  DateTime? fsdfds;
 
   ///  State fields for stateful widgets in this page.
 
